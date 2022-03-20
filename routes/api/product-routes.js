@@ -26,7 +26,30 @@ router.get('/', (req, res) => {
 // get one product
 router.get('/:id', (req, res) => {
   // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  Product.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      { model: Category },
+      { model: Tag, through: productTag, as: 'tags' },
+    ],
+  })
+    .then((results) => {
+      // if no results, respond with 404 and inform user no results found for that ID
+      if (!results) {
+        res.status(404).json({
+          message: `No results found with ID ${req.params.id} found. Please try again with a different ID.`,
+        });
+        return;
+      }
+      // else, respond with results
+      res.json(results);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // create new product
