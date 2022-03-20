@@ -128,6 +128,26 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((results) => {
+      // if no results, set status to 404 and inform user no results for that ID
+      if (!results) {
+        res.status(404).json({
+          message: `No results found with ID ${req.params.id} found. Please try again with a different ID.`,
+        });
+        return;
+      }
+      // else, respond with results
+      res.json(results);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
