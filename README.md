@@ -20,3 +20,5 @@ For this assignment, we were tasked with creating a back end for an e-commerce s
 
 ## Links
 https://github.com/stone-com/Week-13-ECommerce-BackEnd  
+
+https://drive.google.com/file/d/13vpx7Rifd2AinrzcqMox08TyT7ttRFOA/view?usp=sharing
